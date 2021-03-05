@@ -8,12 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { routes } from './app.routes';
 
-const appRoutes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: '**', component: LoginComponent }
-];
 
 @NgModule({
   declarations: [
@@ -23,7 +19,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(
-      appRoutes,
+      routes,
       { enableTracing: true }
     ),
     BrowserModule,

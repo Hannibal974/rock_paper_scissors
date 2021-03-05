@@ -16,9 +16,10 @@ export class LoginComponent implements OnInit {
 
   /**
    * Constructor
+   *
    * @param formBuilder
-   * @param userService 
-   * @param router 
+   * @param userService
+   * @param router
    */
   constructor(
     private formBuilder: FormBuilder,
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
    */
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      'name': new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), this.noWhitespaceValidator])
+      name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), this.noWhitespaceValidator])
     });
   }
 
@@ -52,14 +53,14 @@ export class LoginComponent implements OnInit {
    */
   get name() { return this.loginForm.get('name'); }
 
-
   /**
    * FormControl to check if name is only fill by whitespaces
-   * @param control 
+   *
+   * @param control
    */
   private noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
-    return isWhitespace ? { 'whitespace': true } : null;
+    return isWhitespace ? { whitespace: true } : null;
   }
 
 }

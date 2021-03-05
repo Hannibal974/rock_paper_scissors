@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Choice } from '../models/choice';
+import { Game } from '../models/game';
+import { User } from '../models/user';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-game',
@@ -7,9 +11,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameComponent implements OnInit {
 
-  constructor() { }
+  public game: Game;
+  public user: User;
+  public choices = Object.keys(Choice);
+  public ChoiceInstance = Choice;
+  public selectedChoice: string;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.user = this.userService.currentUser;
+    this.game = new Game(this.user);
+  }
+
+  public selectChoice(choice: string) {
+    this.selectedChoice = choice;
   }
 
 }

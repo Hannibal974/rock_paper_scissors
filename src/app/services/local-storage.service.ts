@@ -9,6 +9,7 @@ export class LocalStorageService {
 
   /**
    * Store data in localStorage
+   *
    * @param key  key to store data
    * @param value data to store
    */
@@ -18,6 +19,7 @@ export class LocalStorageService {
 
   /**
    * Retrieve specific data
+   *
    * @param key key to retieve in localStorage
    */
   public getItem(key: string) {
