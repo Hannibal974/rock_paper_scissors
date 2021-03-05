@@ -7,6 +7,7 @@ import { GameComponent } from './game/game.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -26,7 +27,9 @@ const appRoutes: Routes = [
       { enableTracing: true }
     ),
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     RouterModule
