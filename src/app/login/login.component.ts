@@ -40,9 +40,6 @@ export class LoginComponent implements OnInit {
    * Method called by form submit
    */
   onSubmit() {
-    if (this.loginForm.invalid) {
-      throw new Error('Are you trying to bypass the form security ?');
-    }
     this.user = new User(this.name.value);
     this.userService.storeCurrentUser(this.user);
     this.router.navigate(['game']);
