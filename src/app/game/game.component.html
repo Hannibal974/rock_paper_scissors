@@ -26,19 +26,27 @@
         </div>
     </div>
     <div class="d-flex p-2 game-stat flex-column">
-        <h3>Game Stats</h3>
-        <h5>Score: {{winCount}}</h5>
-        <h5>IA Score: {{iAWinCount}}</h5>
-        <h5>Win Rate: {{winRate}} %</h5>
-        <div *ngFor="let hist of history" class="d-flex flex-row history m-2">
-            <div>
-                <img src="{{'assets/'+hist.userChoice.toLowerCase()+'.svg'}}" [alt]="hist.userChoice" />
-            </div>
-            <div>
-                <img src="{{'assets/'+hist.iAChoice.toLowerCase()+'.svg'}}" [alt]="hist.iAChoice" />
-            </div>
-            <div class="{{hist.result}} result">
-                {{hist.result}}
+        <div class="d-flex flex-row buttons my-2">
+            <button class="btn" [class.selected]="display === 'statistiques'"
+                (click)="toggleDisplay('statistiques')">Statistiques</button>
+            <button class="btn" [class.selected]="display === 'ranking'" (click)="toggleDisplay('ranking')">Ranking</button>
+        </div>
+        <div *ngIf="display === 'statistiques'">
+            <h3>Game Stats</h3>
+            <h5>Score: {{winCount}}</h5>
+            <h5>IA Score: {{iAWinCount}}</h5>
+            <h5>Win Rate: {{winRate}} %</h5>
+            <h5 class="history_title">History</h5>
+            <div *ngFor="let hist of history" class="d-flex flex-row history m-2">
+                <div>
+                    <img src="{{'assets/'+hist.userChoice.toLowerCase()+'.svg'}}" [alt]="hist.userChoice" />
+                </div>
+                <div>
+                    <img src="{{'assets/'+hist.iAChoice.toLowerCase()+'.svg'}}" [alt]="hist.iAChoice" />
+                </div>
+                <div class="{{hist.result}} result">
+                    {{hist.result}}
+                </div>
             </div>
         </div>
     </div>

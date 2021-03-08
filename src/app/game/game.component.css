@@ -37,6 +37,23 @@
     align-self: center;
 }
 
+.buttons {
+    justify-content: space-around;
+}
+
+button.btn {
+    background-color: #FFC312;
+    box-shadow      : none;
+}
+
+.history_title {
+    color: white;
+}
+
+.game-stat button.btn:not(.selected) {
+    opacity: 0.65;
+}
+
 .card-body {
     display       : flex;
     flex-direction: column;

@@ -23,6 +23,7 @@ export class GameComponent implements OnInit {
   public winRate: number;
   public iAWinCount: number;
   public winCount: number;
+  public display = 'statistiques';
 
   constructor(private userService: UserService) { }
 
@@ -70,4 +71,7 @@ export class GameComponent implements OnInit {
     this.winRate = Number((this.winCount * 100 / this.history.length).toFixed(2));
   }
 
+  public toggleDisplay(display: string) {
+    this.display = display;
+  }
 }
