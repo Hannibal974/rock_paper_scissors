@@ -21,6 +21,7 @@ export class GameComponent implements OnInit {
   public result: GameResult;
   public history: Game[];
   public winRate: number;
+  public iAWinCount: number;
   public winCount: number;
 
   constructor(private userService: UserService) { }
@@ -30,6 +31,7 @@ export class GameComponent implements OnInit {
     this.history = [];
     this.winRate = 0;
     this.winCount = 0;
+    this.iAWinCount = 0;
   }
 
   public selectChoice(choice: string) {
@@ -57,6 +59,8 @@ export class GameComponent implements OnInit {
   private increaseHistory() {
     if (this.result === GameResult.WIN) {
       this.winCount++;
+    } else if (this.result === GameResult.LOST) {
+      this.iAWinCount++;
     }
     this.game = new Game(this.user);
     this.game.userChoice = this.selectedChoice;
