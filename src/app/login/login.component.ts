@@ -40,7 +40,13 @@ export class LoginComponent implements OnInit {
       this.users = ranking.map((rank) => rank.user);
     }
     this.loginForm = this.formBuilder.group({
-      name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), this.noWhitespaceValidator, this.noExistingName.bind(this)])
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50),
+        this.noWhitespaceValidator,
+        this.noExistingName.bind(this)
+      ])
     });
   }
 
@@ -70,8 +76,8 @@ export class LoginComponent implements OnInit {
 
   /**
    * FormControl to check if user is already taken
-   * 
-   * @param control 
+   *
+   * @param control
    */
   private noExistingName(control: FormControl) {
     if (this.users.length > 0) {

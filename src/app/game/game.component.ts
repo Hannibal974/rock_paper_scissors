@@ -37,7 +37,7 @@ export class GameComponent implements OnInit {
     this.winCount = 0;
     this.iAWinCount = 0;
     this.ranking = this.localStorageService.getItem('ranking') || [];
-    this.ranking = this.ranking.sort((a, b) => Number((a.wins * 100 / a.matchCount) > Number((b.wins * 100 / b.matchCount)) ? -1 : 1))
+    this.ranking = this.ranking.sort((a, b) => Number((a.wins * 100 / a.matchCount) > Number((b.wins * 100 / b.matchCount)) ? -1 : 1));
   }
 
   public selectChoice(choice: string) {
