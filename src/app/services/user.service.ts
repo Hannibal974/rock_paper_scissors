@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  public currentUser: User;
 
-  constructor(private localStorageService: LocalStorageService) { }
-
-  get currentUser(): User {
-    return this.localStorageService.getItem('currentUser');
-  }
+  constructor() { }
 
   public storeCurrentUser(user: User) {
-    this.localStorageService.setItem('currentUser', JSON.stringify(user));
+    this.currentUser = user;
   }
 }

@@ -9,6 +9,7 @@ export class Game {
     userChoice: Choice;
     iAChoice: Choice;
     result: GameResult;
+    timestamp: number;
 
     /**
      * Constructor
@@ -18,5 +19,6 @@ export class Game {
     constructor(player: User) {
         this.uid = Guid.newGuid();
         this.player = player;
+        this.timestamp = Date.now();
     }
 }

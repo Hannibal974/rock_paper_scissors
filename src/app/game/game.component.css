@@ -2,10 +2,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
-.container {
-    height       : 100%;
-    align-content: center;
-}
 
 .card {
     height          : 40rem;
@@ -15,9 +11,39 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+.boxing.flex-md-row {
+    height: 100%;
+}
+
+.game {
+    flex: 5;
+}
+
+.history {
+    height         : auto;
+    justify-content: space-around;
+}
+
+.history>div>img {
+    width: 5rem;
+}
+
+.game-stat {
+    flex            : 1;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.game-stat>h3 {
+    align-self: center;
+}
+
 .card-body {
     display       : flex;
     flex-direction: column;
+}
+
+.btn-container {
+    padding-bottom: 1.25rem;
 }
 
 .choices {
@@ -35,11 +61,10 @@
 }
 
 .choice.selected {
-    border : 0.5rem solid greenyellow;
-    padding: 0.5rem;
+    border: 0.5rem solid greenyellow;
 }
 
-.card-header h3 {
+h3 {
     color: white;
 }
 
@@ -48,7 +73,6 @@
     flex           : 1;
     justify-content: center;
     flex-direction : column;
-    padding        : 1rem;
 }
 
 .input-group-prepend span {
@@ -77,4 +101,20 @@ input:focus {
 .links a {
     margin-left: 0.4rem;
     color      : white;
+}
+
+.result {
+    line-height: 5rem;
+}
+
+.Win {
+    color: greenyellow;
+}
+
+.Lost {
+    color: red;
+}
+
+.Equality {
+    color: gray
 }
