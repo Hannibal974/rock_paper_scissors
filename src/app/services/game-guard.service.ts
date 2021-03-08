@@ -9,17 +9,17 @@ export class GameGuardService implements CanActivate {
 
   /**
    * Constructor
-   * 
-   * @param userService 
+   *
+   * @param userService
    * @param router
    */
   constructor(private userService: UserService, private router: Router) { }
 
   /**
    * Allowed routing to game page only if currentUser is defined
-   * 
-   * @param route 
-   * @param state 
+   *
+   * @param route
+   * @param state
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if(!!this.userService.currentUser) {

@@ -2,8 +2,9 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../services/local-storage.service';
 import { UserService } from '../services/user.service';
-import { formBuilderStub, routerStub, userServiceStub } from '../tools/unit-test-stub';
+import { formBuilderStub, routerStub, userServiceStub, localStorageServiceStub } from '../tools/unit-test-stub';
 
 import { LoginComponent } from './login.component';
 
@@ -17,7 +18,8 @@ describe('LoginComponent', () => {
       providers: [
         { provide: FormBuilder, useValue: formBuilderStub() },
         { provide: UserService, useValue: userServiceStub() },
-        { provide: Router, useValue: routerStub() }
+        { provide: Router, useValue: routerStub() },
+        { provide: LocalStorageService, useValue: localStorageServiceStub() }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
@@ -35,8 +37,8 @@ describe('LoginComponent', () => {
   });
 
   it('should navigate on submit playername', () => {
-    const routerSpy = spyOn(component['router'], 'navigate');
-    const userSpy = spyOn(component['userService'], 'storeCurrentUser');
+    const routerSpy = spyOn((<any>component).router, 'navigate');
+    const userSpy = spyOn((<any>component).userService, 'storeCurrentUser');
     component.onSubmit();
     expect(routerSpy).toHaveBeenCalledWith(['game']);
     expect(userSpy).toHaveBeenCalled();

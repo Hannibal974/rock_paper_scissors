@@ -25,6 +25,9 @@
                         <div *ngIf="!name.errors.required && name.errors.whitespace">
                             A valid name is required.
                         </div>
+                        <div *ngIf="!name.errors.required && name.errors.alreadyExist">
+                            This player name already exist.
+                        </div>
                     </div>
                     <div class="form-group d-flex justify-content-center">
                         <button type="submit" class="btn center login_btn" [disabled]="loginForm.invalid">Start

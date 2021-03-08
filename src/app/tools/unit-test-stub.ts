@@ -13,3 +13,15 @@ export const userServiceStub = () => ({
     currentuser: new User('test'),
     storeCurrentUser() { }
 });
+
+export const localStorageServiceStub = () => ({
+    getItem(key: string) {
+        if (key === 'ranking') {
+            return [{
+                user: new User('Test'),
+                wins: 1,
+                matchCount: 10
+            }];
+        }
+    }
+});

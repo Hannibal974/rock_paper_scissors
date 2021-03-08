@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
+import { LocalStorageService } from '../services/local-storage.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -14,6 +15,8 @@ export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
 
+  private users: User[] = [];
+
   /**
    * Constructor
    *
@@ -24,15 +27,20 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private localStorageService: LocalStorageService
   ) { }
 
   /**
    * OnInit
    */
   ngOnInit(): void {
+    const ranking = this.localStorageService.getItem('ranking');
+    if (!!ranking) {
+      this.users = ranking.map((rank) => rank.user);
+    }
     this.loginForm = this.formBuilder.group({
-      name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), this.noWhitespaceValidator])
+      name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), this.noWhitespaceValidator, this.noExistingName.bind(this)])
     });
   }
 
@@ -60,4 +68,16 @@ export class LoginComponent implements OnInit {
     return isWhitespace ? { whitespace: true } : null;
   }
 
+  /**
+   * FormControl to check if user is already taken
+   * 
+   * @param control 
+   */
+  private noExistingName(control: FormControl) {
+    if (this.users.length > 0) {
+      const alreadyExist = this.users.filter((user) => user.name === control.value).length > 0;
+      return alreadyExist ? { alreadyExist: true } : null;
+    }
+    return null;
+  }
 }

@@ -1,0 +1,3 @@
+src/app/models/
+*.spec.ts
+src/app/tools/unit-test-stub.ts

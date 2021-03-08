@@ -44,14 +44,14 @@ describe('GameComponent', () => {
 
   it('should increase user wins count', () => {
     component.result = GameResult.WIN;
-    component['increaseHistory']();
+    (<any>component).increaseHistory();
     expect(component.winCount).toEqual(1);
     expect(component.winRate).toEqual(100);
   });
 
   it('should increase IA wins count', () => {
     component.result = GameResult.LOST;
-    component['increaseHistory']();
+    (<any>component).increaseHistory();
     expect(component.winCount).toEqual(0);
     expect(component.iAWinCount).toEqual(1);
     expect(component.winRate).toEqual(0);
@@ -59,7 +59,7 @@ describe('GameComponent', () => {
 
   it('should NOT increase win count', () => {
     component.result = GameResult.EQUALITY;
-    component['increaseHistory']();
+    (<any>component).increaseHistory();
     expect(component.winCount).toEqual(0);
     expect(component.iAWinCount).toEqual(0);
     expect(component.winRate).toEqual(0);

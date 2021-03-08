@@ -7,8 +7,8 @@
             <div class="card-body">
                 <div class="choices">
                     <div class="card card-choice" *ngFor="let choice of choices" (click)="selectChoice(choice)">
-                        <div class="choice" [class.selected]="ChoiceInstance[choice] === selectedChoice">
-                            <img src="{{'assets/'+ChoiceInstance[choice].toLowerCase()+'.svg'}}" [alt]="choice" />
+                        <div class="choice" [class.selected]="choiceInstance[choice] === selectedChoice">
+                            <img src="{{'assets/'+choiceInstance[choice].toLowerCase()+'.svg'}}" [alt]="choice" />
                         </div>
                     </div>
                 </div>
@@ -29,9 +29,10 @@
         <div class="d-flex flex-row buttons my-2">
             <button class="btn" [class.selected]="display === 'statistiques'"
                 (click)="toggleDisplay('statistiques')">Statistiques</button>
-            <button class="btn" [class.selected]="display === 'ranking'" (click)="toggleDisplay('ranking')">Ranking</button>
+            <button class="btn" [class.selected]="display === 'ranking'"
+                (click)="toggleDisplay('ranking')">Ranking</button>
         </div>
-        <div *ngIf="display === 'statistiques'">
+        <div *ngIf="display === 'statistiques'" class="px-1">
             <h3>Game Stats</h3>
             <h5>Score: {{winCount}}</h5>
             <h5>IA Score: {{iAWinCount}}</h5>
@@ -46,6 +47,17 @@
                 </div>
                 <div class="{{hist.result}} result">
                     {{hist.result}}
+                </div>
+            </div>
+        </div>
+        <div *ngIf="display === 'ranking'">
+            <div *ngIf="ranking.length === 0">
+                No ranking recorded
+            </div>
+            <div *ngIf="ranking.length > 0">
+                <div *ngFor="let rank of ranking; let index = index" class="d-flex justify-content-between px-3">
+                    <span>{{ index + 1 }}</span> <span>{{rank.user.name}}</span> <span>{{(rank.wins * 100 /
+                        rank.matchCount).toFixed(2)}} % </span>
                 </div>
             </div>
         </div>

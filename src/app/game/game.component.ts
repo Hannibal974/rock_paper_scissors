@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Choice } from '../models/choice';
 import { Game } from '../models/game';
 import { GameResult } from '../models/gameResult';
+import { Ranking } from '../models/ranking';
 import { User } from '../models/user';
+import { LocalStorageService } from '../services/local-storage.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -15,7 +17,7 @@ export class GameComponent implements OnInit {
   public game: Game;
   public user: User;
   public choices = Object.keys(Choice);
-  public ChoiceInstance = Choice;
+  public choiceInstance = Choice;
   public selectedChoice: Choice;
   public iAChoice: Choice;
   public result: GameResult;
@@ -24,8 +26,9 @@ export class GameComponent implements OnInit {
   public iAWinCount: number;
   public winCount: number;
   public display = 'statistiques';
+  public ranking: Ranking[];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     this.user = this.userService.currentUser;
@@ -33,6 +36,8 @@ export class GameComponent implements OnInit {
     this.winRate = 0;
     this.winCount = 0;
     this.iAWinCount = 0;
+    this.ranking = this.localStorageService.getItem('ranking') || [];
+    this.ranking = this.ranking.sort((a, b) => Number((a.wins * 100 / a.matchCount) > Number((b.wins * 100 / b.matchCount)) ? -1 : 1))
   }
 
   public selectChoice(choice: string) {
@@ -57,6 +62,10 @@ export class GameComponent implements OnInit {
     this.increaseHistory();
   }
 
+  public toggleDisplay(display: string) {
+    this.display = display;
+  }
+
   private increaseHistory() {
     if (this.result === GameResult.WIN) {
       this.winCount++;
@@ -69,9 +78,17 @@ export class GameComponent implements OnInit {
     this.game.result = this.result;
     this.history.push(this.game);
     this.winRate = Number((this.winCount * 100 / this.history.length).toFixed(2));
-  }
-
-  public toggleDisplay(display: string) {
-    this.display = display;
+    const rank = this.ranking.filter((_rank) => _rank.user && _rank.user.uid === this.user.uid);
+    if (!!rank[0]) {
+      rank[0].matchCount++;
+      rank[0].wins += this.result === GameResult.WIN ? 1 : 0;
+    } else {
+      const rankedPlayer = new Ranking(this.user);
+      rankedPlayer.matchCount = 1;
+      rankedPlayer.wins = this.result === GameResult.WIN ? 1 : 0;
+      this.ranking.push(rankedPlayer);
+    }
+    this.localStorageService.setItem('ranking', JSON.stringify(this.ranking));
+    this.ranking = this.ranking.sort((a, b) => Number((a.wins * 100 / a.matchCount) > Number((b.wins * 100 / b.matchCount)) ? -1 : 1));
   }
 }
